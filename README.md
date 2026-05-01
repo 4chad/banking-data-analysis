@@ -7,6 +7,7 @@ An end-to-end data analyst portfolio project — from raw flat file to normalize
 ## 🛠️ Tools & Technologies
 
 | Layer | Tools Used |
+|---|---|
 | Data Cleaning & Modelling | Excel (Power Query, Power Pivot) |
 | Database | PostgreSQL |
 | Python Pipeline | Python 3.12, pandas, SQLAlchemy, psycopg2 |
@@ -16,7 +17,7 @@ An end-to-end data analyst portfolio project — from raw flat file to normalize
 
 ## 📌 Project Overview
 
-This project simulates a real-world banking data workflow using a dataset of **65,000+ loan transactions** across multiple branches, clients, products, and loan officers.
+This project simulates a real-world banking data workflow using **two datasets** — a loan flat file and a debit/credit transaction file — covering branches, clients, products, loan officers, and customer transactions.
 
 The project covers:
 - **Data Cleaning** — Handled missing values, column typos, duplicate columns, and non-uniform formats using Excel Power Query
@@ -24,6 +25,15 @@ The project covers:
 - **SQL Analysis** — Wrote analytical queries using window functions, CTEs, and multi-table joins in PostgreSQL
 - **Python Pipeline** — Automated loading of Excel star schema tables into PostgreSQL using SQLAlchemy
 - **Dashboards** — Built interactive dashboards in Tableau and Power BI to visualize key banking KPIs
+
+---
+
+## 📂 Datasets
+
+| File | Rows | Columns | Description |
+|---|---|---|---|
+| `Bank_Data_Analystics.xlsx` | 65,535 | 52 | Main loan dataset — client, branch, product, officer, loan status, financials. Normalized into star schema. |
+| `Debit_and_Credit_banking_data.xlsx` | 1,00,000 | 12 | Customer transaction data — debit/credit transactions across branches with amount, balance, and method. |
 
 ---
 
@@ -47,7 +57,7 @@ fact_Loan
 | `dim_Product` | Loan product types and categories |
 | `dim_Officer` | Loan officer information |
 
-> 📄 See the full ERD diagram in 
+> 📄 See the full ERD diagram in [`docs/erd.png`](docs/erd.png)
 
 ---
 
@@ -59,14 +69,13 @@ banking-data-project/
 ├── README.md
 │
 ├── data/
-│   ├── raw/                  # Original Excel flat file
+│   ├── raw/                  # Excel File
+│   │   ├── Bank_Data_Analystics_sample.xlsx
+│   │   └── Debit_and_Credit_sample.xlsx
 │   └── processed/            # Cleaned CSVs exported from Power Query
 │
 ├── sql/
-│   ├── 01_schema.sql         # CREATE TABLE statements (star schema DDL)
-│   ├── 02_load_data.sql      # Data loading scripts (COPY / INSERT)
-│   ├── 03_analysis.sql       # Analytical queries — window functions, CTEs
-│   └── 04_views.sql          # Reusable SQL views
+│   ├── analysis.sql       # Analytical queries — window functions, CTEs
 │
 ├── python/
 │   ├── import_excel.py       # Loads Excel star schema tables into PostgreSQL
@@ -172,8 +181,3 @@ Data Analyst | Banking & Financial Services Domain
 📍 India
 
 ---
-
-## 📝 Notes
-
-- Raw data file is not included in the repository due to size. A sample anonymized version is available in `data/raw/`.
-- Dashboard `.twbx` and `.pbix` files connect to a local PostgreSQL instance — update the server/credentials after cloning.
